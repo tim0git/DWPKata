@@ -9,7 +9,9 @@ exports.getUsersByLocation = (req, res, next) => {
 
   fetchUsersByLocation(formattedLocation)
     .then(users => {
-      res.status(200).send({ users });
+      return users.length === 0
+        ? res.status(400).send({ message: 'No users found at this location' })
+        : res.status(200).send({ users });
     })
     .catch(next);
 };

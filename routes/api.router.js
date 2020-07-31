@@ -20,7 +20,9 @@ apiRouter
   .get(getUsersByGeolocation)
   .all(handle405);
 
-// /api send a list of all available routes
+// @desc send a list of all available routes
+// @Public
+// @ Route: /api
 apiRouter.route('/').all(sendRoutes);
 
 module.exports = apiRouter;

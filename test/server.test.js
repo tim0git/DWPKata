@@ -61,6 +61,17 @@ describe('APP ROUTE TESTS DWPKata API', () => {
       });
       return Promise.all(requests);
     });
+
+    describe('ERRORS', () => {
+      test('should return a message no users found at this location if passed an unknown location', () => {
+        return request(app)
+          .get('/api/city/NotALocation/users')
+          .expect(400)
+          .then(({ body }) => {
+            expect(body).toHaveProperty('message', 'No users found at this location');
+          });
+      });
+    });
   });
 
   // Get all users listed as living within 50 miles of london
