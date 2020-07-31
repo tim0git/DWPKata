@@ -1,8 +1,6 @@
-const { fetchUsersByLocation, fetchAllUsers } = require('../apiCall');
+const { fetchUsersByLocation, fetchAllUsers } = require('../dataProvider');
 const { formatLocationInput } = require('../utils/formatLocation');
-const {
-  filterUsersByDistanceAndLocation
-} = require('../utils/filterUsersByDistance');
+const { filterUsers } = require('../utils/filterUsers');
 
 exports.getUsersByLocation = (req, res, next) => {
   const { Location } = req.params;
@@ -24,13 +22,8 @@ exports.getUsersByGeolocation = (req, res, next) => {
 
   fetchAllUsers()
     .then(users => {
-      const filteredUsers = filterUsersByDistanceAndLocation(
-        users,
-        formatedLocation,
-        distance
-      );
+      const filteredUsers = filterUsers(users, formatedLocation, distance);
       res.status(200).send({ users: filteredUsers });
     })
     .catch(next);
 };
-

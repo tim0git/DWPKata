@@ -1,32 +1,30 @@
 const geoDistance = require('geo-distance-helper');
 
-exports.filterUsersByDistanceAndLocation = (users, Location, distance) => {
+exports.filterUsers = (users, Location, distance) => {
   const geoLocations = {
     London: {
       latitude: 51.509865,
       longitude: -0.118092
     }
-  };
+  }
 
-  const KMinAMile = 1.60934;
+  const KMtoMRatio = 1.60934;
 
-  const filteredUsers = users.filter(user => {
-    const point1 = {
+  return users.filter(user => {
+    const userLocation = {
       lat: parseFloat(user.latitude),
       lng: parseFloat(user.longitude)
     };
 
-    const point2 = {
+    const geoLocation = {
       lat: geoLocations[Location].latitude,
       lng: geoLocations[Location].longitude
     };
 
-    const distanceKM = geoDistance(point1, point2);
+    const distance_KM = geoDistance(userLocation, geoLocation);
 
-    const miles = distanceKM / KMinAMile;
+    const miles = distance_KM / KMtoMRatio;
 
     return miles <= distance;
   });
-
-  return filteredUsers;
 };

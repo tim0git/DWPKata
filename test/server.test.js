@@ -4,7 +4,7 @@ const request = require('supertest');
 describe('APP ROUTE TESTS DWPKata API', () => {
   // Test /api returns a pre formatted JSON Object.
   describe('Test the /api route returns the /api instructions', () => {
-    it('When any request is sent to /api it returns a JSON object', () => {
+    test('When any request is sent to /api it returns a JSON object', () => {
       const invalidMethods = ['patch', 'get', 'put', 'delete', 'post'];
       const requests = invalidMethods.map(method => {
         return request(app)
@@ -48,7 +48,7 @@ describe('APP ROUTE TESTS DWPKata API', () => {
     });
 
     // Test that users are returned irrespective of the case of the input location
-    it('When passed a location in lower case returns users listed as living in london', () => {
+    test('When passed a location in lower case returns users listed as living in london', () => {
       const invalidLocations = ['london', 'London', 'LONDON', 'LoNdOn'];
       const requests = invalidLocations.map(location => {
         return request(app)
@@ -93,5 +93,37 @@ describe('APP ROUTE TESTS DWPKata API', () => {
         });
     });
   });
-  //
+
+  describe('TEST 405 Invalid Methods for all routes', () => {
+    test('When method is not valid it returns a message that has the location of the server instructions', () => {
+      const invalidMethods = ['patch', 'put', 'delete', 'post'];
+      const requests = invalidMethods.map(method => {
+        return request(app)
+          [method]('/api/city/London/users')
+          .expect(405)
+          .then(({ body }) => {
+            expect(body).toHaveProperty(
+              'message',
+              'method not allowed please see /api for available end points'
+            );
+          });
+      });
+      return Promise.all(requests);
+    });
+    test('When method is not valid it returns a message that has the location of the server instructions', () => {
+      const invalidMethods = ['patch', 'put', 'delete', 'post'];
+      const requests = invalidMethods.map(method => {
+        return request(app)
+          [method]('/api/geolocation/London/users?distance=50')
+          .expect(405)
+          .then(({ body }) => {
+            expect(body).toHaveProperty(
+              'message',
+              'method not allowed please see /api for available end points'
+            );
+          });
+      });
+      return Promise.all(requests);
+    });
+  });
 });

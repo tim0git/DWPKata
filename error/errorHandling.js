@@ -5,7 +5,9 @@ exports.sendRoutes = (req, res, next) => {
 };
 
 exports.handle405 = (req, res, next) => {
-  res.status(405).send({ msg: 'method not allowed' });
+  res.status(405).send({
+    message: 'method not allowed please see /api for available end points'
+  });
 };
 
 exports.handleCustomError = (err, req, res, next) => {
@@ -18,5 +20,5 @@ exports.handleCustomError = (err, req, res, next) => {
 
 exports.handleInternalError = (err, req, res) => {
   console.log(err);
-  res.status(500).send({ msg: 'Internal server error' });
+  res.status(500).send({ message: 'Internal server error' });
 };

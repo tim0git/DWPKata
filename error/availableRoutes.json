@@ -1,6 +1,5 @@
 {
-  "swagger": "2.0",
-  "basePath": "/",
+  "basePath": "/api",
   "paths": {
     "/city/{city}/users": {
       "parameters": [
@@ -16,41 +15,33 @@
           "200": {
             "description": "Success"
           }
-        },
-        "operationId": "get_users",
-        "tags": ["default"]
+        }
       }
     },
-    "/users": {
+    "/geolocation/{city}/users?distance={distance}": {
+      "parameters": [
+        {
+          "name": "city",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "distance",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
       "get": {
         "responses": {
           "200": {
             "description": "Success"
           }
-        },
-        "operationId": "get_users",
-        "tags": ["default"]
+        }
       }
     }
   },
-  "info": {
-    "title": "API",
-    "version": "1.0"
-  },
   "produces": ["application/json"],
-  "consumes": ["application/json"],
-  "tags": [
-    {
-      "name": "default",
-      "description": "Default namespace"
-    }
-  ],
-  "responses": {
-    "ParseError": {
-      "description": "When a mask can't be parsed"
-    },
-    "MaskError": {
-      "description": "When any error occurs on mask"
-    }
-  }
+  "consumes": ["application/json"]
 }
