@@ -94,6 +94,7 @@ describe('APP ROUTE TESTS DWPKata API', () => {
     });
   });
 
+  // Tests that all non allowed methods return a message giving instuctions for the /api
   describe('TEST 405 Invalid Methods for all routes', () => {
     test('When method is not valid it returns a message that has the location of the server instructions', () => {
       const invalidMethods = ['patch', 'put', 'delete', 'post'];

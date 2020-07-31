@@ -16,9 +16,9 @@ Express server to solve DWP Kata all end points and instructions are available o
 
 **additional functionality**
 
-- [ ] As a user I should be able to make an api call to fetch all of the users whose current coordinates are within a set number of miles from London.
+- [x] As a user I should be able to make an api call to fetch all of the users whose current coordinates are within a set number of miles from London.
 
-- [ ] As a user I should be able to make an api call to /api to receive a list of instructions for the server.
+- [x] As a user I should be able to make an api call to /api to receive a list of instructions for the server.
 
 ## Dependancies
 

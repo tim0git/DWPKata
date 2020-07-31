@@ -7,10 +7,14 @@ const {
 
 const { handle405 } = require('../error/errorHandling');
 
-// apiRouter.use('/geolocation', );
+// @desc send back a list of users listed as living at the given location
+// @Public
+// @ Route: /city/London/users
 apiRouter.route('/city/:Location/users').get(getUsersByLocation).all(handle405);
 
-// /api/geolocation/London/users?distance=50
+// @desc send back a list of users with co-ordinates within given distance of the given location
+// @Public
+// @ Route: /api/geolocation/London/users?distance=50
 apiRouter
   .route('/geolocation/:Location/users')
   .get(getUsersByGeolocation)
