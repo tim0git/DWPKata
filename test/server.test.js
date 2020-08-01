@@ -68,7 +68,10 @@ describe('APP ROUTE TESTS DWPKata API', () => {
           .get('/api/city/NotALocation/users')
           .expect(400)
           .then(({ body }) => {
-            expect(body).toHaveProperty('message', 'No users found at this location');
+            expect(body).toHaveProperty(
+              'message',
+              'No users found at NotALocation'
+            );
           });
       });
     });
@@ -102,6 +105,31 @@ describe('APP ROUTE TESTS DWPKata API', () => {
             expect(user).toHaveProperty('longitude');
           });
         });
+    });
+
+    describe('ERRORS /api/geolocation/London/users?distance=50', () => {
+      test('should return a 400 please provide a distance if the distance is not provided', () => {
+        return request(app)
+          .get('/api/geolocation/London/users?distance=')
+          .expect(400)
+          .then(({ body }) => {
+            expect(body).toHaveProperty(
+              'message',
+              'Please provide a distance in miles must be greater than 0'
+            );
+          });
+      });
+      test('should return a 400 ', () => {
+        return request(app)
+          .get('/api/geolocation/London/users?distance=5')
+          .expect(400)
+          .then(({ body }) => {
+            expect(body).toHaveProperty(
+              'message',
+              'No users found at this location within the given distance'
+            );
+          });
+      });
     });
   });
 
